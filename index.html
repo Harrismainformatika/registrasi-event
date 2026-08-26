@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrasi Event</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f4f9; padding: 20px; }
+        .container { max-width: 400px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin: auto; }
+        h2 { text-align: center; color: #333; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        button { width: 100%; padding: 10px; background: #2ea44f; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; }
+        button:hover { background: #2c974b; }
+        #message { margin-top: 15px; text-align: center; font-weight: bold; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Pendaftaran Event</h2>
+    <form id="eventForm">
+        <div class="form-group">
+            <label for="nama">Nama Lengkap:</label>
+            <input type="text" id="nama" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+        </div>
+        <div class="form-group">
+            <label for="kategori">Kategori Tiket:</label>
+            <select id="kategori">
+                <option value="Reguler">Reguler (Gratis)</option>
+                <option value="VIP">VIP (Premium)</option>
+            </select>
+        </div>
+        <button type="submit">Daftar Sekarang</button>
+    </form>
+    <div id="message"></div>
+</div>
+
+<script>
+    document.getElementById('eventForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const nama = document.getElementById('nama').value;
+        const email = document.getElementById('email').value;
+        const kategori = document.getElementById('kategori').value;
+        const messageDiv = document.getElementById('message');
+
+        if(nama && email) {
+            // Membuat objek data peserta
+            const peserta = { nama, email, kategori, tanggal: new Date().toLocaleDateString() };
+
+            // Mengambil data lama atau membuat array baru jika kosong
+            let daftarPeserta = JSON.parse(localStorage.getItem('daftarPeserta')) || [];
+            daftarPeserta.push(peserta);
+
+            // Menyimpan kembali ke Local Storage
+            localStorage.setItem('daftarPeserta', JSON.stringify(daftarPeserta));
+
+            // Menampilkan pesan sukses dan reset form
+            messageDiv.className = "success";
+            messageDiv.innerText = "Registrasi Berhasil! Data Anda telah disimpan.";
+            document.getElementById('eventForm').reset();
+        } else {
+            messageDiv.className = "error";
+            messageDiv.innerText = "Mohon isi semua data dengan benar.";
+        }
+    });
+</script>
+
+</body>
+</html>
