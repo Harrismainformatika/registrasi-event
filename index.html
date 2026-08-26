@@ -13,7 +13,7 @@
         }
 
         body {
-            background-color: #13365c;
+            background-color: #0e2238;
             color: #ffffff;
             display: flex;
             justify-content: center;
@@ -95,7 +95,7 @@
             width: 100%;
             padding: 12px;
             background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid #415a77;
+            border: 1px solid #21344a;
             border-radius: 6px;
             color: #ffffff;
             font-size: 14px;
@@ -108,7 +108,7 @@
         }
 
         input::placeholder {
-            color: #778da9;
+            color: #21344a;
         }
 
         select {
@@ -249,14 +249,12 @@
         </div>
 
         <div class="form-group">
-            <select id="transport" required>
-                <option value="" disabled selected hidden>Select Transportation Option</option>
-                <option value="Mobil">Mobil Pribadi</option>
-                <option value="Motor">Sepeda Motor</option>
-                <option value="Umum">Transportasi Umum</option>
-                <option value="Panitia">Akomodasi Panitia</option>
+            <select id="Session" required>
+                <option value="" disabled selected hidden>Select Session Option</option>
+                <option value="Mobil">End User</option>
+                <option value="Motor">Partner</option>
             </select>
-            <label for="transport">Transportation: <span>*</span></label>
+            <label for="transport">Event Session: <span>*</span></label>
         </div>
 
         <button type="submit" class="btn-submit">
