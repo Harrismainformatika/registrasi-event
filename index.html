@@ -13,7 +13,7 @@
         }
 
         body {
-            background-color: #1c4587;
+            background-color: #13365c;
             color: #ffffff;
             display: flex;
             justify-content: center;
@@ -25,8 +25,8 @@
         .container {
             width: 100%;
             max-width: 600px;
-            background-color: #0d1b2a;
-            border: 2px solid #d4af37;
+            background-color: #1c4587;
+            border: 2px solid #e67e10;
             border-radius: 12px;
             padding: 30px;
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
@@ -150,6 +150,43 @@
             background-color: #aa841c;
         }
 
+        /* Widget Kontrol Musik */
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(13, 27, 42, 0.9);
+            border: 1px solid #d4af37;
+            padding: 10px 15px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+
+        .music-btn {
+            background: #d4af37;
+            color: #0d1b2a;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .music-text {
+            font-size: 11px;
+            color: #d4af37;
+            letter-spacing: 1px;
+        }
+
         @media (max-width: 480px) {
             .form-row {
                 flex-direction: column;
@@ -160,22 +197,29 @@
 </head>
 <body>
 
+<!-- Elemen Audio Musik Latar -->
+<!-- Ganti link src di bawah ini dengan URL file musik .mp3 Anda sendiri jika ada -->
+<audio id="bgMusic" loop src=" https://soundcloud.com/infectiousmusicuk/sweet-disposition-by-the-temper-trap?si=a665826c1cea46b19ee0cd8a4a804a43&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing "></audio>
+
+<!-- Tombol Kontrol Musik -->
+<div class="music-control">
+    <span class="music-text">🎵 BACKGROUND MUSIC</span>
+    <button type="button" class="music-btn" id="musicToggle">▶</button>
+</div>
+
 <div class="container">
-    <!-- Bagian Logo Atas -->
     <div class="header-logos">
-        <span>Brother</span>
+        <span>HARRISMA</span>
         <span>|</span>
-        <span>Harrisma</span>
+        <span>BROTHER</span>
     </div>
 
-    <!-- Bagian Judul Acara -->
-    <div class="header-title">Register for Event:</div>
+    <div class="header-title">Register for Summit:</div>
     <div class="main-title">
         CONNECT. COLLABORATE.<br>
         <span>TOGETHER.</span>
     </div>
 
-    <!-- Formulir Input -->
     <form id="summitForm">
         <div class="form-group">
             <input type="text" id="fullname" placeholder="Masukkan nama lengkap Anda" required>
@@ -215,12 +259,36 @@
             <label for="transport">Transportation: <span>*</span></label>
         </div>
 
-        <!-- Tombol Submit Utama -->
         <button type="submit" class="btn-submit">
             Register Now
         </button>
     </form>
 </div>
+
+<script>
+    const music = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicToggle');
+
+    // 1. Fungsi Klik Tombol Putar/Jeda Musik
+    musicBtn.addEventListener('click', function() {
+        if (music.paused) {
+            music.play();
+            musicBtn.innerText = "⏸";
+        } else {
+            music.pause();
+            musicBtn.innerText = "▶";
+        }
+    });
+
+    // 2. Otomatis putar saat pengguna mulai mengetik atau klik area mana saja di web (Solusi Autoplay Blocked)
+    document.addEventListener('click', function() {
+        if (music.paused && musicBtn.innerText === "▶") {
+            music.play().then(() => {
+                musicBtn.innerText = "⏸";
+            }).catch(error => console.log("Autoplay dicegah oleh browser"));
+        }
+    }, { once: true }); // Hanya berjalan 1 kali pada klik pertama
+</script>
 
 </body>
 </html>
