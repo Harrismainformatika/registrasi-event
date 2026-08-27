@@ -220,7 +220,7 @@
         <span>TOGETHER.</span>
     </div>
 
-    <form id="summitForm">
+    <form id="summitForm" method="POST" action="TEMPEL_URL_WEB_APP_GOOGLE_DI_SINI">
         <div class="form-group">
             <input type="text" id="fullname" placeholder="Masukkan nama lengkap Anda" required>
             <label for="fullname">Full Name: <span>*</span></label>
@@ -287,6 +287,26 @@
         }
     }, { once: true }); // Hanya berjalan 1 kali pada klik pertama
 </script>
+    const form = document.getElementById('summitForm');
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const submitButton = form.querySelector('.btn-submit');
+  submitButton.disabled = true;
+  submitButton.innerText = "Sending...";
+
+  fetch(form.action, { method: 'POST', body: new FormData(form)})
+    .then(response => {
+        alert('Registrasi Berhasil! Terima kasih.');
+        form.reset();
+        submitButton.disabled = false;
+        submitButton.innerText = "Register Now";
+    })
+    .catch(error => {
+        alert('Terjadi kesalahan, coba lagi.');
+        submitButton.disabled = false;
+        submitButton.innerText = "Register Now";
+    });
+});
 
 </body>
 </html>
